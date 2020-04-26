@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import Head from "next/head";
-const Mapa = dynamic(() => import("./maps/mapa"), { ssr: false });
+const Mapa = dynamic(() => import("./maps/map"), { ssr: false });
 /*
 sirgas - proyeccion suramerica
 magna - colombia
