@@ -1,25 +1,16 @@
 import React from "react";
 import { createApolloFetch } from "apollo-fetch";
-import {
-  FeatureGroup,
-  LayersControl,
-  Map,
-  Popup,
-  TileLayer,
-  LayerGroup,
-  GeoJSON,
-} from "react-leaflet";
+import {  FeatureGroup,  LayersControl,  Map,  TileLayer,  LayerGroup } from "react-leaflet";
 import { ALL_PREDIOS } from "../../apollo/queries/predios";
 import { INSERT_PREDIO } from "../../apollo/mutations/predios";
 import _ from "lodash";
 import { Button } from "@blueprintjs/core";
 import { EditControl } from "react-leaflet-draw";
 const { BaseLayer, Overlay } = LayersControl;
-import { geojson } from "./geojson";
+import { poly } from "./poligonos";
+import Poly from './Polygon';
 const center = [7.00954958159228, -75.69189548492432];
-const fetch = createApolloFetch({
-  uri: "http://localhost:4000/graphql",
-});
+const fetch = createApolloFetch({ uri: "http://localhost:4000/graphql" });
 
 class Mapa extends React.Component {
   constructor(props) {
@@ -27,8 +18,8 @@ class Mapa extends React.Component {
     this.state = {
       recibidos: [],
     };
-  }
-  locales = [];
+  };
+  locales=[];
 
   onGuardarClickHandler = (e) => {
     _.map(this.locales, (geos) => {
@@ -61,11 +52,6 @@ class Mapa extends React.Component {
         )
       )
       .then((geo) => this.setState({ recibidos: geo }));
-  };
-
-  onEachFeature = (feature, layer) => {
-    const popupContent = ` <Popup><p>Customizable Popups <br />with feature information.</p><pre>Borough: <br />${feature.properties.name}</pre></Popup>`
-    layer.bindPopup(popupContent)
   };
   render() {
     return (
@@ -111,31 +97,13 @@ class Mapa extends React.Component {
                 url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
               />
             </BaseLayer>
-            {!_.isEmpty(this.state.recibidos) && (
               <Overlay checked name="Recibidos">
-                
-                <GeoJSON
-                  data={_.map(this.state.recibidos, (predio) => ({
-                    type: "Feature",
-                    geometry: JSON.parse(predio.shape.geojson),
-                    properties: {
-                      id: predio.id,
-                    },
-                  }))}
-                  
-                  style={{
-                    color: "black",
-                    weight: 1,
-                    fillOpacity: 0.5,
-                    fillColor: "red",
-                  }}
-                  onEachFeature={this.onEachFeature}
-                />
+                <LayerGroup>
+                {_.map(poly, (p, index) =><Poly key={index} feature={p} index={index}/>)}
+                </LayerGroup>
               </Overlay>
-            )}
           </LayersControl>
         </Map>
-
         <Button text="Guardar" onClick={this.onGuardarClickHandler} />
         <Button text="Leer" onClick={this.onLeerClickHandler} />
       </div>

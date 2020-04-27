@@ -9,21 +9,22 @@ magna - colombia
 
 const Home = () => {
   return (
-      <div>
+      <>
         <Head>
-        <link
+          <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css"
           />
           <link
             rel="stylesheet"
-            href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css"
           />
+          <link rel="stylesheet" href="leaflet.css" />
           <link rel="stylesheet" href="style.css" />
           
         </Head>
         <Mapa />
-      </div>
+      </>
   );
 };
 
