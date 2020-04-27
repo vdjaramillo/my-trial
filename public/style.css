@@ -1,3 +1,17 @@
 .sr-only {
     display: none;
   }
+
+.poly{
+  
+    color: "black";
+    weight: 1;
+    fillOpacity: 0.5;
+    fill: rgb(51, 255, 68);
+  
+}
+
+.poly:hover{
+  fill: rgb(13, 77, 19)
+
+}

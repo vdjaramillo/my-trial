@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import Head from "next/head";
-const Mapa = dynamic(() => import("./maps/mapa"), { ssr: false });
+import React from 'react';
+const Mapa = dynamic(() => import("./maps/map"), { ssr: false });
 /*
 sirgas - proyeccion suramerica
 magna - colombia
@@ -9,21 +10,22 @@ magna - colombia
 
 const Home = () => {
   return (
-      <div>
+      <>
         <Head>
-        <link
+          <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css"
           />
           <link
             rel="stylesheet"
-            href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css"
           />
+          <link rel="stylesheet" href="leaflet.css" />
           <link rel="stylesheet" href="style.css" />
           
         </Head>
         <Mapa />
-      </div>
+      </>
   );
 };
 
